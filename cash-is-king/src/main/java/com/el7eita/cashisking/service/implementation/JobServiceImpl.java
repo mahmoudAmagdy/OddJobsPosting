@@ -58,7 +58,7 @@ public class JobServiceImpl implements JobService{
 	    		throw new NoJobIssuerExistsException(
 	    				String.format("No job issuer exists with id=%d", userId));
 	        }
-	    	return jobRepository.findByUserId(userId);
+	    	return jobRepository.findByJobIssuerUserId(userId);
 	    }
 	    
 

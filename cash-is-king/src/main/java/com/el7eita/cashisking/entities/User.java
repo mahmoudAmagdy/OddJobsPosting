@@ -28,7 +28,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@NotNull
-	private int userId;
+	private Integer userId;
 	
 	@NotNull
 	@NotBlank(message = "username must not be empty!")
@@ -63,7 +63,7 @@ public class User {
 	@ManyToOne
 	private UserType userType;
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "user")
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Job> jobs;

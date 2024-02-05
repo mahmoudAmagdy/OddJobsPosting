@@ -9,7 +9,7 @@ import com.el7eita.cashisking.entities.Job;
 
 public interface JobRepository extends JpaRepository<Job, Integer>{
     @Query("SELECT i FROM Job i WHERE i.userId = ?1")
-    List<Job> findByUserId(Integer userId);
+    List<Job> findByJobIssuerUserId(Integer userId);
     
 
 }
