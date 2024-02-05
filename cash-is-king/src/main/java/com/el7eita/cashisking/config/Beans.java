@@ -31,10 +31,7 @@ public class Beans {
     public AccessLog accessLog() {
         return new AccessLog();
     }
-    @Bean
-    public JobIssuerService jobIssuerService() {
-        return new JobIssuerServiceImpl();
-    }
+
     
     @Bean
     public JobService jobService() {

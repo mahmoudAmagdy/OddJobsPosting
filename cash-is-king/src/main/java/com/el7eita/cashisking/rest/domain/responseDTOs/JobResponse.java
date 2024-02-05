@@ -2,8 +2,7 @@ package com.el7eita.cashisking.rest.domain.responseDTOs;
 
 import java.util.List;
 
-import com.el7eita.cashisking.entities.JobIssuer;
-import com.el7eita.cashisking.entities.JobTaker;
+import com.el7eita.cashisking.entities.User;
 
 import lombok.Data;
 
@@ -16,8 +15,8 @@ public class JobResponse {
 	private Integer slotsLeft;
 	private String jobDate;
 	
-	private List<JobTaker> jobTakers;
-	private JobIssuer jobIssuer;
+	private List<User> jobTakers;
+	private User jobIssuer;
 
 
 }

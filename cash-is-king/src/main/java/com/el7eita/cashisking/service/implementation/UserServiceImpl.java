@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 public class UserServiceImpl implements UserService{
-	 private static final Logger LOGGER = LoggerFactory.getLogger(JobIssuerServiceImpl.class);
+	 private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private JobRepository jobRepository;
