@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class UserResponse {
 	private String userFirstName;
+	private String userName;
 	private String userLastName;
 	private String userPhoneNumber;
 	private Double userRating;

@@ -42,9 +42,14 @@ public class JobIssuerController {
 	    //Content-type : app/json
 	    //payload: { "jiNatId":"30004108762097", "jiFirstName":"Ahmed", "jiLastName":"Sabra", "jiPhoneNumber":"23294233", "jiRating":8.3}
 	    @PostMapping(value="/issuers")
-	    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest jIss) {
-	        LOGGER.debug("Received request to create the {}", jIss);
-	    	User ji = jiService.save(pojoMapper.map(jIss, User.class));
+	    public ResponseEntity<UserResponse> createUserJi(@RequestBody UserRequest jIss) {
+	        LOGGER.debug("Received request to create the {}", jIss);	        
+	        UserType uT = new UserType();
+	        uT.setTypeId(1);
+	        uT.setTypeName("Job Issuer");
+	    	User ji = (pojoMapper.map(jIss, User.class));
+	    	ji.setUserType(uT);
+	    	jiService.save(ji);
 	        return ResponseEntity.ok(pojoMapper.map(ji,UserResponse.class));
 	    }
 

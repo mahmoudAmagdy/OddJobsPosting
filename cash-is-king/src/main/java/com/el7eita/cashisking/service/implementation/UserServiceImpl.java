@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	public User save(@NotNull @Valid final User jobIss) {
     	LOGGER.debug("Creating {}", jobIss);
-    	if(userRepository.findByUserNatId(jobIss.getUserNatId()) != null) {
+    	if(!userRepository.findByUserName(jobIss.getUserName()).isEmpty()) {
     		throw new JobIssuerAlreadyExistsException(
-    				String.format("There is already a job issuer by the name of [%s]", jobIss.getUserFirstName() + " " + jobIss.getUserLastName()));
+    				String.format("There is already a user by the name of [%s]", jobIss.getUserFirstName() + " " + jobIss.getUserLastName()));
     	}
     	return userRepository.save(jobIss);
 	}

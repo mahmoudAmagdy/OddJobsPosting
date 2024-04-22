@@ -40,7 +40,7 @@ public class JobTakerController {
     //Content-type : app/json
     //payload:
     @PostMapping(value="/takers")
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest useraker) {
+    public ResponseEntity<UserResponse> createUserJt(@RequestBody UserRequest useraker) {
         LOGGER.debug("Received request to create the {}", useraker);
         User user = userService.save(pojoMapper.map(useraker, User.class));
         return ResponseEntity.ok().body(pojoMapper.map(user, UserResponse.class));

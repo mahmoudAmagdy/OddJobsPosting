@@ -1,6 +1,5 @@
 package com.el7eita.cashisking.security;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,11 +9,13 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -22,19 +23,28 @@ public class SecurityConfig {
     UserDetailsService userDetailsService;
     
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-          .authorizeHttpRequests((authorizeHttpRequests) ->
-           authorizeHttpRequests
-          .requestMatchers("/**").hasRole("USER")
-          .requestMatchers("/**").hasRole("ADMIN")
-          )
-          .formLogin(withDefaults());
+                .authorizeHttpRequests((authorizeHttpRequests) ->
+                        authorizeHttpRequests
+                                .requestMatchers("/authenticate").permitAll()
+                                .requestMatchers("/takers/**").hasRole("USER")
+                                .requestMatchers("/issuers/**").hasRole("ADMIN")
+
+                )
+                .csrf(csrf -> 
+                		csrf
+                				.disable()
+                )
+                .cors(cors ->
+                		cors
+                				.disable()
+                );
 
         return http.build();
     }
@@ -43,7 +53,7 @@ public class SecurityConfig {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return NoOpPasswordEncoder.getInstance();
 	}
 
 }

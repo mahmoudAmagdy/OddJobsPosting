@@ -3,6 +3,8 @@ package com.el7eita.cashisking.rest.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -95,5 +97,21 @@ public class GlobalExceptionController {
 
 	}
 
+	@ExceptionHandler(UsernameNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ResponseBody
+	public String handleUsernameNotFoundException(HttpServletRequest request, UsernameNotFoundException e) {
+        LOGGER.info("UsernameNotFoundException occured: URL="+request.getRequestURL());
+        return e.getLocalizedMessage();
+
+	}
+	@ExceptionHandler(BadCredentialsException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ResponseBody
+	public String handleBadCredentialsException(HttpServletRequest request, BadCredentialsException e) {
+        LOGGER.info("BadCredentialsException occured: URL="+request.getRequestURL());
+        return e.getLocalizedMessage();
+
+	}
 
 }
